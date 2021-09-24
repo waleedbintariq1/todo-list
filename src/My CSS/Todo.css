@@ -1,0 +1,9 @@
+.todoBorder {
+  border-bottom: solid 1px black;
+}
+
+.todoDetails {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
