@@ -5,11 +5,12 @@ import "../My CSS/TodoList.css";
 import Todo from "./Todo";
 
 export default function TodoList(props) {
+  const todoList = props.todoList;
   return (
     <div className="mt-5">
       <ul>
-        {props.todoList.map((todo) => {
-          return <Todo todo={todo} />;
+        {todoList.map((todo, index) => {
+          return <Todo todo={todo} index={index} />;
         })}
       </ul>
     </div>

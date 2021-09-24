@@ -7,9 +7,9 @@ function App() {
   const [todoList, setTodoList] = useState([]);
 
   const [todo, setTodo] = useState({
-    id: 1,
+    checkBoxState: false,
     desc: "",
-    date: new Date(),
+    date: new Date().toString(),
   });
 
   return (
@@ -46,9 +46,9 @@ function App() {
                     id="todo"
                     placeholder="Enter todo"
                     onChange={(e) => {
-                      setTodo((prevState) => {
-                        desc: "lol";
-                      });
+                      // our value in this case is an object
+                      // that's why we use curly braces
+                      setTodo({ ...todo, desc: e.target.value });
                     }}
                   />
                 </div>

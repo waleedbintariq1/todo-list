@@ -1,9 +1,19 @@
 .todoBorder {
-  border-bottom: solid 1px black;
+  background-color: whitesmoke;
+  border: solid 2px grey;
+  border-radius: 1em;
 }
 
-.todoDetails {
+.contentLayout {
   display: flex;
   flex-direction: row;
   gap: 2em;
+}
+
+.buttonLayout {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: flex-end;
 }
