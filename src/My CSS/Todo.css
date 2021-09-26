@@ -5,15 +5,15 @@
 }
 
 .contentLayout {
-  display: flex;
-  flex-direction: row;
-  gap: 2em;
+  display: grid;
+  grid-template-columns: 1fr 30fr 1fr;
+  grid-gap: 1em;
+  justify-items: space-between;
 }
 
-.buttonLayout {
-  margin-top: 2em;
-  display: flex;
-  flex-direction: row;
-  gap: 1em;
-  justify-content: flex-end;
+.itemButtons {
+  align-items: start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
 }

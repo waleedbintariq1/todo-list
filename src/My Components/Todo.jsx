@@ -2,12 +2,8 @@ import React from "react";
 import "../My CSS/Todo.css";
 
 export default function Todo(props) {
-  const index = props.index;
-
-  const handleDelete = (params) => {};
-
   return (
-    <div className="mb-3 p-3 todoBorder">
+    <div className="mb-3 p-3 todoBorder" key={props.index}>
       <div className="container">
         <div className="contentLayout">
           <div class="form-check">
@@ -18,14 +14,19 @@ export default function Todo(props) {
               id="flexCheckDefault"
             />
           </div>
-          <h4>{props.todo.desc}</h4>{" "}
-        </div>
-
-        <div className="buttonLayout">
-          <button className="btn btn-outline-primary" onClick={handleDelete}>
-            Edit
-          </button>
-          <button className="btn btn-outline-danger">Delete</button>
+          <h5>{props.todo.desc}</h5>{" "}
+          <div className="itemButtons">
+            {" "}
+            {/* <button className="btn btn-outline-primary">Edit</button> */}
+            <button
+              className="btn btn-outline-danger"
+              onClick={() => {
+                props.onDelete(props.index);
+              }}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -12,6 +12,14 @@ function App() {
     date: new Date().toString(),
   });
 
+  const handleDelete = (index) => {
+    console.log("handling delete...");
+    setTodo({});
+    todoList.splice(index, 1);
+    setTodoList(todoList);
+    console.log(todoList);
+  };
+
   return (
     <div className="container mt-5 p-3 w-50 customBorder">
       <button
@@ -35,7 +43,9 @@ function App() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   setTodoList((prevList) => [...prevList, todo]);
-                  console.log(todo);
+
+                  // clearing todo so that next todo can be added
+                  setTodo({ ...todo, desc: "" });
                 }}
               >
                 <div className="form-group">
@@ -45,6 +55,9 @@ function App() {
                     className="form-control"
                     id="todo"
                     placeholder="Enter todo"
+                    // setting value to todo.desc so that on submit we can clear the value
+                    // thus, the input field will be cleared so that next value can be entered
+                    value={todo.desc}
                     onChange={(e) => {
                       // our value in this case is an object
                       // that's why we use curly braces
@@ -64,7 +77,7 @@ function App() {
         </div>
       </div>
 
-      <TodoList todoList={todoList}></TodoList>
+      <TodoList todoList={todoList} onDelete={handleDelete}></TodoList>
     </div>
   );
 }
