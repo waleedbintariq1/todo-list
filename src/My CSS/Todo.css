@@ -17,3 +17,14 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
 }
+
+.itemCheckbox {
+  /* border: 2px solid black; */
+  align-self: center;
+}
+
+.itemText {
+  /* border: 2px solid black; */
+  align-self: center;
+  margin-top: 2px;
+}

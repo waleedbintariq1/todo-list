@@ -6,7 +6,7 @@ export default function Todo(props) {
     <div className="mb-3 p-3 todoBorder" key={props.index}>
       <div className="container">
         <div className="contentLayout">
-          <div class="form-check">
+          <div class="form-check itemCheckbox">
             <input
               class="form-check-input"
               type="checkbox"
@@ -14,10 +14,8 @@ export default function Todo(props) {
               id="flexCheckDefault"
             />
           </div>
-          <h5>{props.todo.desc}</h5>{" "}
+          <h5 className="itemText">{props.todo.desc}</h5>{" "}
           <div className="itemButtons">
-            {" "}
-            {/* <button className="btn btn-outline-primary">Edit</button> */}
             <button
               className="btn btn-outline-danger"
               onClick={() => {
