@@ -8,6 +8,9 @@ import { axiosGetTodos, axiosAddTodo, axiosDeleteTodo } from "./axios";
 function App() {
   const [todoList, setTodoList] = useState([]);
 
+  const [purpose, setPurpose] = useState("");
+  const [editIndex, setEditIndex] = useState();
+
   const [todo, setTodo] = useState({
     checkboxState: false,
     desc: "",
@@ -39,10 +42,46 @@ function App() {
     setTodo({ ...todo, desc: value });
   };
 
+  const handleEdit = (index) => {
+    setPurpose("edit");
+    setEditIndex(index);
+  };
+
+  const handleEdit2 = (todo) => {
+    console.log("todo list: ");
+
+    let updatedTodoList = { ...todoList };
+    updatedTodoList[editIndex] = todo;
+
+    console.log(updatedTodoList);
+
+    setTodoList(updatedTodoList);
+  };
+
   return (
     <div className="container mt-5 p-3 w-50 customBorder">
-      <InputTodo onAdd={handleAdd} onType={handleType} todo={todo}></InputTodo>
-      <TodoList todoList={todoList} onDelete={handleDelete}></TodoList>
+      <button
+        className="btn btn-primary"
+        data-toggle="modal"
+        data-target="#myModal"
+        onClick={() => {
+          setPurpose("add");
+        }}
+      >
+        Add Todo
+      </button>
+      <InputTodo
+        purpose={purpose}
+        onAdd={handleAdd}
+        onEdit={handleEdit2}
+        onType={handleType}
+        todo={todo}
+      ></InputTodo>
+      <TodoList
+        todoList={todoList}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+      ></TodoList>
     </div>
   );
 }

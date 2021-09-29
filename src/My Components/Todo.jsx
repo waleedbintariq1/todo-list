@@ -17,6 +17,16 @@ export default function Todo(props) {
           <h5 className="itemText">{props.todo.desc}</h5>{" "}
           <div className="itemButtons">
             <button
+              className="btn btn-outline-primary"
+              data-toggle="modal"
+              data-target="#myModal"
+              onClick={() => {
+                props.onEdit(props.index);
+              }}
+            >
+              Edit
+            </button>
+            <button
               className="btn btn-outline-danger"
               onClick={() => {
                 props.onDelete(props.index);

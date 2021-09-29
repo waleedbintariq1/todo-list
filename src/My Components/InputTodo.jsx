@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 
 export default function InputTodo(props) {
+  let check;
+  if (props.purpose == "add") {
+    check = true;
+  } else {
+    check = false;
+  }
+
   return (
     <div>
-      <button
-        className="btn btn-primary"
-        data-toggle="modal"
-        data-target="#myModal"
-      >
-        Add Todo
-      </button>
-
       <div className="modal fade" id="myModal">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5>Add Todo</h5>
+              <h5>{check ? "Add Todo" : "Edit Todo"}</h5>
               <button className="btn-close" data-dismiss="modal"></button>
             </div>
 
@@ -23,7 +22,7 @@ export default function InputTodo(props) {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  props.onAdd(props.todo);
+                  check ? props.onAdd(props.todo) : props.onEdit(props.todo);
                 }}
               >
                 <div className="form-group">
@@ -44,7 +43,7 @@ export default function InputTodo(props) {
 
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-outline-primary mt-3">
-                    Add
+                    {check ? "Add" : "Edit"}
                   </button>
                 </div>
               </form>

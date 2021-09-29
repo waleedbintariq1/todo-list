@@ -10,7 +10,14 @@ export default function TodoList(props) {
     <div className="mt-5">
       <ul>
         {todoList.map((todo, index) => {
-          return <Todo todo={todo} index={index} onDelete={props.onDelete} />;
+          return (
+            <Todo
+              todo={todo}
+              index={index}
+              onDelete={props.onDelete}
+              onEdit={props.onEdit}
+            />
+          );
         })}
       </ul>
     </div>

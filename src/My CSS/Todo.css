@@ -12,9 +12,8 @@
 }
 
 .itemButtons {
-  align-items: start;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(1, minmax(0fr, 1fr));
   grid-gap: 1em;
 }
 
