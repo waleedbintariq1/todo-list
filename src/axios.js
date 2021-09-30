@@ -25,4 +25,17 @@ function axiosDeleteTodo(index) {
   });
 }
 
-export { axiosGetTodos, axiosAddTodo, axiosDeleteTodo };
+function axiosEditTodo({ ...updatedTodo }, index) {
+  const data = {
+    updatedTodo: updatedTodo,
+    index: index,
+  };
+
+  return axios({
+    method: "PUT",
+    url: `http://localhost:${port}/editTodo`,
+    data,
+  });
+}
+
+export { axiosGetTodos, axiosAddTodo, axiosDeleteTodo, axiosEditTodo };

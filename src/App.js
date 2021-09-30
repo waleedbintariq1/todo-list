@@ -3,7 +3,14 @@ import TodoList from "./My Components/TodoList";
 import InputTodo from "./My Components/InputTodo";
 
 import "./App.css";
-import { axiosGetTodos, axiosAddTodo, axiosDeleteTodo } from "./axios";
+import {
+  axiosGetTodos,
+  axiosAddTodo,
+  axiosDeleteTodo,
+  axiosEditTodo,
+} from "./axios";
+
+import axios from "axios";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -47,15 +54,17 @@ function App() {
     setEditIndex(index);
   };
 
-  const handleEdit2 = (todo) => {
-    console.log("todo list: ");
-
-    let updatedTodoList = { ...todoList };
-    updatedTodoList[editIndex] = todo;
-
-    console.log(updatedTodoList);
-
+  const handleEdit2 = (updatedTodo) => {
+    let updatedTodoList = [...todoList];
+    updatedTodoList[editIndex] = updatedTodo;
     setTodoList(updatedTodoList);
+
+    axiosEditTodo({ ...updatedTodo }, editIndex)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+
+    // clearing todo so that next todo can be added
+    setTodo({ ...todo, desc: "" });
   };
 
   return (
@@ -77,6 +86,7 @@ function App() {
         onType={handleType}
         todo={todo}
       ></InputTodo>
+      {/* {FIXME Add a check so that following component only renders when count of todoList changes or we are editing a todo } */}
       <TodoList
         todoList={todoList}
         onDelete={handleDelete}
