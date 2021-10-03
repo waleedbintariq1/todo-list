@@ -17,11 +17,13 @@ function axiosAddTodo({ ...todo }) {
   });
 }
 
-function axiosDeleteTodo(index) {
+function axiosDeleteTodo(id) {
+  console.log("in axios: ");
+  console.log(id);
   return axios({
     method: "DELETE",
     url: `http://localhost:${port}/deleteTodo`,
-    data: { index },
+    data: { id },
   });
 }
 

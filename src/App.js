@@ -10,8 +10,6 @@ import {
   axiosEditTodo,
 } from "./axios";
 
-import axios from "axios";
-
 function App() {
   const [todoList, setTodoList] = useState([]);
 
@@ -19,24 +17,22 @@ function App() {
   const [editIndex, setEditIndex] = useState();
 
   const [todo, setTodo] = useState({
-    checkboxState: false,
+    id: 0,
     desc: "",
-    date: new Date().toString(),
+    createdAt: new Date(),
   });
 
   useEffect(() => {
     axiosGetTodos().then((res) => setTodoList(res.data));
   }, []);
 
-  const handleDelete = (index) => {
-    axiosDeleteTodo(index).then((res) => setTodoList(res.data));
+  const handleDelete = (id) => {
+    axiosDeleteTodo(id).then((res) => setTodoList(res.data));
   };
 
   const handleAdd = (todo) => {
-    setTodoList((prevList) => [...prevList, todo]);
-
     axiosAddTodo({ ...todo })
-      .then((res) => console.log(res.data))
+      .then((res) => setTodoList((prevList) => [...prevList, res.data]))
       .catch((err) => console.error());
 
     // clearing todo so that next todo can be added
@@ -55,12 +51,13 @@ function App() {
   };
 
   const handleEdit2 = (updatedTodo) => {
-    let updatedTodoList = [...todoList];
-    updatedTodoList[editIndex] = updatedTodo;
-    setTodoList(updatedTodoList);
+    // find actual ID of the todo to be updated
+    // actual ID refers to the id in the database for todo to be updated
+    const actualID = todoList[editIndex].id;
+    updatedTodo = { ...updatedTodo, id: actualID };
 
     axiosEditTodo({ ...updatedTodo }, editIndex)
-      .then((res) => console.log(res.data))
+      .then((res) => setTodoList(res.data))
       .catch((err) => console.log(err));
 
     // clearing todo so that next todo can be added
