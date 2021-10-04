@@ -1,0 +1,25 @@
+.formFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.loginContainer {
+  margin-top: 3em;
+  padding: 3em;
+  background-color: antiquewhite;
+  border-radius: 1em;
+
+  border: 2px solid black;
+
+  width: 700px;
+}
+
+.myLink {
+  color: rgb(24, 180, 231);
+}
+
+.myLink:hover {
+  cursor: pointer;
+  color: blue;
+}

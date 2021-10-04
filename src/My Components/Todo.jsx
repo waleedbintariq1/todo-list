@@ -18,7 +18,9 @@ export default function Todo(props) {
   let amOrPm = "";
 
   if (hours >= 12) {
-    hours -= 12;
+    if (hours > 12) {
+      hours -= 12;
+    }
     amOrPm = "pm";
   } else {
     amOrPm = "am";
