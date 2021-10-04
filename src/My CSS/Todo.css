@@ -4,28 +4,38 @@
   border-radius: 1em;
 }
 
-.contentOuterLayout {
+.contentLayout {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  gap: 1em;
-
-  border: 2px solid black;
 }
 
-.contentInnerLayout {
+.textLayout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 2px solid green;
+  grid-template-columns: 3fr 1fr;
 }
 
-.itemButtons {
+.dateAndTime {
   display: grid;
   grid-template-columns: repeat(2, minmax(5em, 5em));
   grid-gap: 1em;
+  justify-items: flex-end;
+}
 
+.date {
+  font-size: 16px;
+  width: 100%;
+}
+
+.time {
+  font-size: 16px;
+  width: 100%;
+}
+
+.buttonsLayout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(5em, 5em));
+  grid-gap: 1em;
   justify-content: flex-end;
-
-  border: 2px solid red;
 }
 
 .itemCheckbox {
