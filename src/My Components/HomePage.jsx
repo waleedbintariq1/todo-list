@@ -3,6 +3,8 @@ import TodoList from "./TodoList";
 import InputTodo from "./InputTodo";
 import "../My CSS/HomePage.css";
 
+import { useHistory } from "react-router-dom";
+
 import {
   axiosGetTodos,
   axiosAddTodo,
@@ -11,6 +13,7 @@ import {
 } from "../axios";
 
 function HomePage() {
+  const history = useHistory();
   const [todoList, setTodoList] = useState([]);
 
   const [purpose, setPurpose] = useState("");
@@ -56,7 +59,7 @@ function HomePage() {
     const actualID = todoList[editIndex].id;
     updatedTodo = { ...updatedTodo, id: actualID };
 
-    axiosEditTodo({ ...updatedTodo }, editIndex)
+    axiosEditTodo(updatedTodo, editIndex)
       .then((res) => setTodoList(res.data))
       .catch((err) => console.log(err));
 
@@ -83,12 +86,22 @@ function HomePage() {
         onType={handleType}
         todo={todo}
       ></InputTodo>
-      {/* {FIXME Add a check so that following component only renders when count of todoList changes or we are editing a todo } */}
+
       <TodoList
         todoList={todoList}
         onDelete={handleDelete}
         onEdit={handleEdit}
       ></TodoList>
+
+      <button
+        className="btn-btn-outline-danger"
+        onClick={() => {
+          localStorage.clear();
+          history.push("/");
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 }

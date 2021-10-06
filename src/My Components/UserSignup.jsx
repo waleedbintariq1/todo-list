@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { useHistory } from "react-router-dom";
+
+import { axiosSignup } from "../axios";
 
 export default function UserSignup(props) {
+  const history = useHistory();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const user = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+
+    axiosSignup(user)
+      .then((res) => {
+        if (res.data) {
+          alert("Signup successful!");
+        } else {
+          alert("Email already in use!");
+        }
+      })
+      .catch((err) => console.log(err));
+
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <div className=" container loginContainer">
       <h1 className="text-center">Signup</h1>
 
-      <form className="p-5">
+      <form className="p-5" onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
           <label htmlFor="firstName" className="form-label">
             First Name
@@ -17,8 +55,8 @@ export default function UserSignup(props) {
             id="firstName"
             name="firstName"
             placeholder="Enter first name"
-            // value={this.state.student.name}
-            // onChange={this.handleChange.bind(this)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
 
@@ -33,8 +71,8 @@ export default function UserSignup(props) {
             id="lastName"
             name="lastName"
             placeholder="Enter last name"
-            // value={this.state.student.name}
-            // onChange={this.handleChange.bind(this)}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </div>
 
@@ -49,8 +87,8 @@ export default function UserSignup(props) {
             id="emailAddress"
             name="emailAddress"
             placeholder="Enter email address"
-            // value={this.state.student.name}
-            // onChange={this.handleChange.bind(this)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -63,28 +101,22 @@ export default function UserSignup(props) {
             className="form-control"
             id="password"
             placeholder="Enter password"
-            // onChange={(e) =>
-            //   this.setState((prev) => ({
-            //     student: {
-            //       ...prev.student,
-            //       dob: e.target.valueAsDate,
-            //     },
-            //   }))
-            // }
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <button type="submit" className="btn btn-outline-primary">
+        <button type="submit" className="btn btn-primary">
           Signup
         </button>
 
         <div
           className="mt-5 myLink"
           onClick={() => {
-            props.changeControl();
+            history.push("/");
           }}
         >
-          Not already a user?
+          Already a user?
         </div>
       </form>
     </div>

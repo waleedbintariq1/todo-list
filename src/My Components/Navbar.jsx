@@ -9,8 +9,8 @@ export default function Navbar() {
       <Link to="/login" className="btn btn-outline-primary">
         Login
       </Link>
-      <Link to="/home" className="btn btn-outline-primary">
-        Home
+      <Link to="/signup" className="btn btn-outline-primary">
+        Signup
       </Link>
       <Link to="/about" className="btn btn-outline-primary">
         About

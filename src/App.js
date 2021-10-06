@@ -1,35 +1,29 @@
 import React from "react";
 
 import Navbar from "./My Components/Navbar";
-import HomePage from "./My Components/HomePage";
+import UserSignup from "./My Components/UserSignup";
 import UserLogin from "./My Components/UserLogin";
-import About from "./My Components/About";
+import HomePage from "./My Components/HomePage";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter,
+} from "react-router-dom";
 
 function App() {
   return (
-    // <div>
-    //   <HomePage></HomePage>
-    // </div>
-
     <Router>
-      <div>
-        <Navbar></Navbar>
-      </div>
-
       <Switch>
-        <Router path="/home">
-          <HomePage></HomePage>
-        </Router>
-
-        <Router path="/login">
+        <Route exact path="/">
           <UserLogin></UserLogin>
-        </Router>
+        </Route>
 
-        <Router path="/about">
-          <About></About>
-        </Router>
+        <Route path="/signup" component={UserSignup} />
+
+        <Route path="/homepage" component={HomePage} />
       </Switch>
     </Router>
   );

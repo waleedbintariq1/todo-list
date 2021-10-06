@@ -1,43 +1,81 @@
 import axios from "axios";
 
-const port = 5000;
+const TODO_PORT = 5000;
+const USER_PORT = 5001;
 
 function axiosGetTodos() {
   return axios({
     method: "GET",
-    url: `http://localhost:${port}/getTodos`,
+    url: `http://localhost:${TODO_PORT}/getTodos`,
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }
 
-function axiosAddTodo({ ...todo }) {
+function axiosAddTodo(todo) {
+  const data = { ...todo };
+
   return axios({
     method: "POST",
-    url: `http://localhost:${port}/addTodo`,
+    url: `http://localhost:${TODO_PORT}/addTodo`,
     data: todo,
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }
 
 function axiosDeleteTodo(id) {
-  console.log("in axios: ");
-  console.log(id);
   return axios({
     method: "DELETE",
-    url: `http://localhost:${port}/deleteTodo`,
+    url: `http://localhost:${TODO_PORT}/deleteTodo`,
     data: { id },
   });
 }
 
-function axiosEditTodo({ ...updatedTodo }, index) {
+function axiosEditTodo(updatedTodo, index) {
   const data = {
-    updatedTodo: updatedTodo,
-    index: index,
+    updatedTodo: { ...updatedTodo },
+    index,
   };
 
   return axios({
     method: "PUT",
-    url: `http://localhost:${port}/editTodo`,
+    url: `http://localhost:${TODO_PORT}/editTodo`,
     data,
   });
 }
 
-export { axiosGetTodos, axiosAddTodo, axiosDeleteTodo, axiosEditTodo };
+function axiosSignup(user) {
+  const data = { ...user };
+
+  return axios({
+    method: "POST",
+    url: `http://localhost:${USER_PORT}/signupUser`,
+    data,
+  });
+}
+
+function axiosLogin(user) {
+  const data = { ...user };
+  return axios({
+    method: "POST",
+    url: `http://localhost:${USER_PORT}/loginUser`,
+    data,
+  });
+}
+
+function axiosLoginConfirm() {
+  return axios({
+    method: "POST",
+    url: `http:localhost:${TODO_PORT}/confirmLogin`,
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+}
+
+export {
+  axiosGetTodos,
+  axiosAddTodo,
+  axiosDeleteTodo,
+  axiosEditTodo,
+  axiosSignup,
+  axiosLogin,
+  axiosLoginConfirm,
+};
