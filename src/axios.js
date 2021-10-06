@@ -65,7 +65,7 @@ function axiosLogin(user) {
 function axiosLoginConfirm() {
   return axios({
     method: "POST",
-    url: `http:localhost:${TODO_PORT}/confirmLogin`,
+    url: `http://localhost:${USER_PORT}/confirmLogin`,
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }

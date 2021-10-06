@@ -26,7 +26,6 @@ export default function UserLogin() {
     if (token != undefined) {
       axiosLoginConfirm()
         .then((res) => {
-          console.log("yessss!");
           console.log(res.data);
           history.push("/homepage");
           // if (res.data.authenticated) {
