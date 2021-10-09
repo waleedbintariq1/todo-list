@@ -1,0 +1,9 @@
+.app {
+  display: grid;
+  grid-template-rows: 1fr 5fr 1fr;
+}
+
+.mainHeader {
+  border: 2px solid red;
+  align-self: end;
+}

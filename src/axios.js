@@ -27,6 +27,7 @@ function axiosDeleteTodo(id) {
     method: "DELETE",
     url: `http://localhost:${TODO_PORT}/deleteTodo`,
     data: { id },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }
 
@@ -40,6 +41,7 @@ function axiosEditTodo(updatedTodo, index) {
     method: "PUT",
     url: `http://localhost:${TODO_PORT}/editTodo`,
     data,
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }
 
@@ -63,6 +65,7 @@ function axiosLogin(user) {
 }
 
 function axiosLoginConfirm() {
+  console.log("inside axios login confirm");
   return axios({
     method: "POST",
     url: `http://localhost:${USER_PORT}/confirmLogin`,

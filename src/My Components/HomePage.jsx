@@ -10,9 +10,10 @@ import {
   axiosAddTodo,
   axiosDeleteTodo,
   axiosEditTodo,
+  axiosLoginConfirm,
 } from "../axios";
 
-function HomePage() {
+function HomePage(props) {
   const history = useHistory();
   const [todoList, setTodoList] = useState([]);
 
@@ -26,7 +27,24 @@ function HomePage() {
   });
 
   useEffect(() => {
-    axiosGetTodos().then((res) => setTodoList(res.data));
+    const token = localStorage.getItem("token");
+
+    console.log("inside homepage use effect!");
+
+    if (token != undefined) {
+      // check validity of token
+      axiosLoginConfirm().then((res) => {
+        console.log(res.status);
+        if (res.status == 403) {
+          history.push("/");
+        }
+        if (res.status == 200) {
+          axiosGetTodos().then((res) => setTodoList(res.data));
+        }
+      });
+    } else {
+      console.log("token is undefined");
+    }
   }, []);
 
   const handleDelete = (id) => {
@@ -68,17 +86,20 @@ function HomePage() {
   };
 
   return (
-    <div className="container mt-5 p-3 w-50 customBorder">
-      <button
-        className="btn btn-primary"
-        data-toggle="modal"
-        data-target="#myModal"
-        onClick={() => {
-          setPurpose("add");
-        }}
-      >
-        Add Todo
-      </button>
+    <div className="container p-3 w-50 customBorder">
+      <div className="homePageButtons">
+        <button
+          className="btn btn-primary"
+          data-toggle="modal"
+          data-target="#myModal"
+          onClick={() => {
+            setPurpose("add");
+          }}
+        >
+          Add Todo
+        </button>
+      </div>
+
       <InputTodo
         purpose={purpose}
         onAdd={handleAdd}
@@ -92,16 +113,6 @@ function HomePage() {
         onDelete={handleDelete}
         onEdit={handleEdit}
       ></TodoList>
-
-      <button
-        className="btn-btn-outline-danger"
-        onClick={() => {
-          localStorage.clear();
-          history.push("/");
-        }}
-      >
-        Logout
-      </button>
     </div>
   );
 }

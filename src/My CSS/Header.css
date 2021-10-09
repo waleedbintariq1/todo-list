@@ -1,0 +1,36 @@
+.Header {
+  background-color: rgb(61, 74, 78);
+
+  margin-bottom: 2em;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  padding: 1em;
+
+  height: fit-content;
+}
+
+.logo {
+  color: white;
+  align-self: center;
+}
+
+.innerHeader {
+  display: flex;
+  flex-direction: row;
+
+  gap: 1em;
+
+  align-self: center;
+  justify-self: end;
+}
+
+.navLink {
+  color: white;
+  /* width: fit-content; */
+}
+
+.navLink:hover {
+  color: rgb(84, 100, 105);
+}

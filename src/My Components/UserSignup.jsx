@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useHistory } from "react-router-dom";
 
-import { axiosSignup } from "../axios";
+import { axiosSignup, axiosLoginConfirm } from "../axios";
+
+import "../My CSS/UserLogin.css";
 
 export default function UserSignup(props) {
   const history = useHistory();
@@ -12,6 +14,23 @@ export default function UserSignup(props) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    // check whether token is available
+    if (token != undefined) {
+      // check whether token is valid
+      axiosLoginConfirm()
+        .then((res) => {
+          if (res.status) {
+            // token is valid
+            history.push("/homepage");
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -1,0 +1,11 @@
+.footer {
+  background-color: rgb(61, 74, 78);
+
+  margin-top: 5em;
+}
+
+.footerText {
+  color: white;
+  text-align: center;
+  justify-self: center;
+}
