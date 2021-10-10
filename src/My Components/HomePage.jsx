@@ -26,29 +26,52 @@ function HomePage(props) {
     createdAt: new Date(),
   });
 
+  // if we don't give any argument as the 2nd parameter for useEffect()
+  // the hook works as both componentDidMount and componentDidUpdate lifecycle methods
+
+  // if 2nd parameter is set to empty array, then it only works as componentDidMount
+
+  // Difference is that when no argument is provided the useEffect is called again and again
+  // which can be seen by the console logging the message
+  // which results in the user being automatically taken back to login screen after token expires
+
+  // problem: when second arg is not provided, cleanup func is executed again and again as well
+  // only want cleanup func to execute once when the user logouts or token expires
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     console.log("inside homepage use effect!");
 
-    if (token != undefined) {
+    if (token !== null) {
       // check validity of token
-      axiosLoginConfirm().then((res) => {
-        console.log(res.status);
-        if (res.status == 403) {
-          history.push("/");
-        }
-        if (res.status == 200) {
-          axiosGetTodos().then((res) => setTodoList(res.data));
-        }
-      });
+      axiosLoginConfirm()
+        .then((res) => {
+          if (res.status === 200) {
+            axiosGetTodos().then((res) => setTodoList(res.data));
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 403) {
+            console.log("token is no longer valid");
+            history.push("/");
+          }
+        });
     } else {
-      console.log("token is undefined");
+      console.log("token is null");
+      history.push("/");
     }
+
+    // return function cleanup() {
+    //   localStorage.clear();
+    //   console.log("good bye home page!");
+    // };
   }, []);
 
   const handleDelete = (id) => {
-    axiosDeleteTodo(id).then((res) => setTodoList(res.data));
+    axiosDeleteTodo(id)
+      .then((res) => setTodoList(res.data))
+      .catch((err) => console.log(err));
   };
 
   const handleAdd = (todo) => {

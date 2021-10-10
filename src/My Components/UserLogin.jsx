@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-import UserSignup from "./UserSignup";
-import HomePage from "./HomePage";
-
 import "../My CSS/UserLogin.css";
 
 import { axiosLogin, axiosLoginConfirm } from "../axios";
@@ -22,26 +19,33 @@ export default function UserLogin(props) {
 
   // if user is already logged in, they should be redirected to homepage
   useEffect(() => {
+    // if user refreshes page on homepage, then this code ensures that the correct-
+    // header component is displayed
+
     console.log("inside login page use effect");
     const token = localStorage.getItem("token");
 
     // check whether token is available
-    if (token != undefined) {
+    if (token !== null) {
       // check whether token is valid
       axiosLoginConfirm()
         .then((res) => {
-          if (res.status == 200) {
-            // token is valid
-            history.push("/homepage");
-          }
+          history.push("/homepage");
 
-          if (res.status == 403) {
+          // if (res.status === 200) {
+          //   // token is valid
+          //   history.push("/homepage");
+          // }
+        })
+        .catch((err) => {
+          if (err.response.status === 403) {
             console.log("token is no longer valid");
           }
-        })
-        .catch((err) => console.log(err));
+        });
+    } else {
+      console.log("token is null");
     }
-  }, []);
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +59,10 @@ export default function UserLogin(props) {
       .then((res) => {
         if (res.data.authenticated) {
           localStorage.setItem("token", res.data.accessToken);
+
+          // to update the header of the app
           props.updateHeader(true);
+
           history.push("/homepage");
         } else {
           alert("Incorrect login credentials!");

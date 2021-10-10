@@ -12,8 +12,6 @@ function axiosGetTodos() {
 }
 
 function axiosAddTodo(todo) {
-  const data = { ...todo };
-
   return axios({
     method: "POST",
     url: `http://localhost:${TODO_PORT}/addTodo`,

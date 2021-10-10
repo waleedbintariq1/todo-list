@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import UserSignup from "./My Components/UserSignup";
 import UserLogin from "./My Components/UserLogin";
@@ -10,18 +10,33 @@ import Footer from "./My Components/Footer";
 
 import "./App.css";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  withRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import { axiosLogin, axiosLoginConfirm } from "./axios";
 
 function App() {
-  const token = localStorage.getItem("token");
-
   const [tokenFound, setTokenFound] = useState(false);
+
+  useEffect(() => {
+    console.log("inside app use effect");
+    const token = localStorage.getItem("token");
+
+    // check whether token is available
+    if (token !== null) {
+      // check whether token is valid
+      axiosLoginConfirm()
+        .then((res) => {
+          setTokenFound(true);
+        })
+        .catch((err) => {
+          if (err.response.status === 403) {
+            setTokenFound(false);
+          }
+        });
+    } else {
+      console.log("token is null");
+    }
+  });
 
   return (
     <Router>

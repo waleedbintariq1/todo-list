@@ -27,7 +27,7 @@ export default function Todo(props) {
   }
 
   return (
-    <div className="mb-3 p-3 todoBorder" key={index}>
+    <div className="mb-3 p-3 todoBorder">
       <div className="container">
         <div className="contentLayout">
           <div className="textLayout">

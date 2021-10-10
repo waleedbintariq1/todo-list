@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
 export default function InputTodo(props) {
   let check;
-  if (props.purpose == "add") {
+  if (props.purpose === "add") {
     check = true;
   } else {
     check = false;
@@ -41,8 +41,11 @@ export default function InputTodo(props) {
                   />
                 </div>
 
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-outline-primary mt-3">
+                <div className="modal-footer">
+                  <button
+                    type="submit"
+                    className="btn btn-outline-primary mt-3"
+                  >
                     {check ? "Add" : "Edit"}
                   </button>
                 </div>

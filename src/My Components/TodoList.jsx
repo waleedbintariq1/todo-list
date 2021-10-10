@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "../My CSS/TodoList.css";
 
@@ -17,6 +17,7 @@ export default function TodoList(props) {
               index={index}
               onDelete={props.onDelete}
               onEdit={props.onEdit}
+              key={index}
             />
           );
         })}

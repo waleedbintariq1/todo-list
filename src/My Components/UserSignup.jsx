@@ -16,10 +16,12 @@ export default function UserSignup(props) {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
+    console.log("inside signup page use effect");
+
     const token = localStorage.getItem("token");
 
     // check whether token is available
-    if (token != undefined) {
+    if (token !== null) {
       // check whether token is valid
       axiosLoginConfirm()
         .then((res) => {
@@ -28,9 +30,15 @@ export default function UserSignup(props) {
             history.push("/homepage");
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (err.response.status === 403) {
+            console.log("token is no longer valid");
+          }
+        });
+    } else {
+      console.log("token is null");
     }
-  }, []);
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();

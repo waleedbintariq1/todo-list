@@ -13,7 +13,10 @@ export default function LoginHeader(props) {
           className="navLink"
           to="/"
           onClick={() => {
+            // to clear token
             localStorage.clear();
+
+            // to change header of the app
             props.updateHeader(false);
           }}
         >
