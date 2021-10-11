@@ -85,7 +85,7 @@ export default function UserLogin(props) {
           </label>
           <input
             required
-            type="text"
+            type="email"
             className="form-control"
             id="emailAddress"
             name="emailAddress"
