@@ -4,10 +4,19 @@
   gap: 1em;
 }
 
+label {
+  color: white;
+}
+
+.loginHeading {
+  text-align: center;
+  color: white;
+}
+
 .loginContainer {
   margin-top: 3em;
   padding: 3em;
-  background-color: antiquewhite;
+  background-color: rgb(89, 108, 114);
   border-radius: 1em;
 
   border: 2px solid black;

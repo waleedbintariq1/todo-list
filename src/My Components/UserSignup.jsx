@@ -68,7 +68,7 @@ export default function UserSignup(props) {
 
   return (
     <div className=" container loginContainer">
-      <h1 className="text-center">Signup</h1>
+      <h1 className="loginHeading">Signup</h1>
 
       <form className="p-5" onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
