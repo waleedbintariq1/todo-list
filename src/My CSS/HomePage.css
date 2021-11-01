@@ -1,7 +1,7 @@
 .customBorder {
   border: solid black 2px;
   border-radius: 1em;
-  background-color: antiquewhite;
+  background-color: rgb(89, 108, 114);
 }
 
 .homePageButtons {

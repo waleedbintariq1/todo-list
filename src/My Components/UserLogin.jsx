@@ -27,21 +27,23 @@ export default function UserLogin(props) {
 
     // check whether token is available
     if (token !== null) {
-      // check whether token is valid
-      axiosLoginConfirm()
-        .then((res) => {
-          history.push("/homepage");
+      if (token.length > 0) {
+        // check whether token is valid
+        axiosLoginConfirm()
+          .then((res) => {
+            history.push("/homepage");
 
-          // if (res.status === 200) {
-          //   // token is valid
-          //   history.push("/homepage");
-          // }
-        })
-        .catch((err) => {
-          if (err.response.status === 403) {
-            console.log("token is no longer valid");
-          }
-        });
+            // if (res.status === 200) {
+            //   // token is valid
+            //   history.push("/homepage");
+            // }
+          })
+          .catch((err) => {
+            if (err.response.status === 403) {
+              console.log("token is no longer valid");
+            }
+          });
+      }
     } else {
       console.log("token is null");
     }
@@ -55,10 +57,14 @@ export default function UserLogin(props) {
       password,
     };
 
+    localStorage.setItem("userEmail", user.email);
+
     axiosLogin(user)
       .then((res) => {
         if (res.data.authenticated) {
-          localStorage.setItem("token", res.data.accessToken);
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("email", res.data.user.email);
+          localStorage.setItem("password", res.data.user.password);
 
           // to update the header of the app
           props.updateHeader(true);
@@ -67,6 +73,7 @@ export default function UserLogin(props) {
         } else {
           alert("Incorrect login credentials!");
         }
+        console.log(res.status);
       })
       .catch((err) => console.log(err));
 

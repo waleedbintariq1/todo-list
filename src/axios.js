@@ -1,30 +1,37 @@
 import axios from "axios";
 
-const TODO_PORT = 5000;
+const TODO_PORT = 5001;
 const USER_PORT = 5001;
 
 function axiosGetTodos() {
+  // GET methods do not contain a body
+  // as such, we cannot pass data in this request
+
+  let email = localStorage.getItem("email");
+
   return axios({
     method: "GET",
-    url: `http://localhost:${TODO_PORT}/getTodos`,
+    url: `https://localhost:${TODO_PORT}/api/Todos/${email}`,
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }
 
 function axiosAddTodo(todo) {
+  let data = { ...todo, email: localStorage.getItem("userEmail") };
+
   return axios({
     method: "POST",
-    url: `http://localhost:${TODO_PORT}/addTodo`,
-    data: todo,
+    url: `https://localhost:${TODO_PORT}/api/Todos`,
+    data,
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }
 
 function axiosDeleteTodo(id) {
+  console.log("inside axios delete todo");
   return axios({
     method: "DELETE",
-    url: `http://localhost:${TODO_PORT}/deleteTodo`,
-    data: { id },
+    url: `https://localhost:${TODO_PORT}/api/Todos/${id}`,
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }
@@ -37,7 +44,7 @@ function axiosEditTodo(updatedTodo, index) {
 
   return axios({
     method: "PUT",
-    url: `http://localhost:${TODO_PORT}/editTodo`,
+    url: `https://localhost:${TODO_PORT}/api/Todos`,
     data,
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
@@ -48,25 +55,25 @@ function axiosSignup(user) {
 
   return axios({
     method: "POST",
-    url: `http://localhost:${USER_PORT}/signupUser`,
+    url: `https://localhost:${USER_PORT}/api/Authentication/Register`,
     data,
   });
 }
 
 function axiosLogin(user) {
+  console.log("inside axios login");
   const data = { ...user };
   return axios({
     method: "POST",
-    url: `http://localhost:${USER_PORT}/loginUser`,
+    url: `https://localhost:${USER_PORT}/api/Authentication/Login`,
     data,
   });
 }
 
 function axiosLoginConfirm() {
-  console.log("inside axios login confirm");
   return axios({
     method: "POST",
-    url: `http://localhost:${USER_PORT}/confirmLogin`,
+    url: `https://localhost:${USER_PORT}/api/Authentication/LoginConfirm`,
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }

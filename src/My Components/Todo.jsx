@@ -31,7 +31,7 @@ export default function Todo(props) {
       <div className="container">
         <div className="contentLayout">
           <div className="textLayout">
-            <h5 className="itemText">{todo.desc}</h5>
+            <h5 className="itemText">{todo.description}</h5>
 
             <div className="dateAndTime">
               <div className="time">

@@ -22,7 +22,7 @@ function HomePage(props) {
 
   const [todo, setTodo] = useState({
     id: 0,
-    desc: "",
+    description: "",
     createdAt: new Date(),
   });
 
@@ -48,7 +48,14 @@ function HomePage(props) {
       axiosLoginConfirm()
         .then((res) => {
           if (res.status === 200) {
-            axiosGetTodos().then((res) => setTodoList(res.data));
+            axiosGetTodos()
+              .then((res) => {
+                console.log(res.data);
+                setTodoList(res.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
         })
         .catch((err) => {
@@ -70,7 +77,9 @@ function HomePage(props) {
 
   const handleDelete = (id) => {
     axiosDeleteTodo(id)
-      .then((res) => setTodoList(res.data))
+      .then((res) => {
+        setTodoList(res.data);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -80,13 +89,13 @@ function HomePage(props) {
       .catch((err) => console.error());
 
     // clearing todo so that next todo can be added
-    setTodo({ ...todo, desc: "" });
+    setTodo({ ...todo, description: "" });
   };
 
   const handleType = (value) => {
     // our value in this case is an object
     // that's why we use curly braces
-    setTodo({ ...todo, desc: value });
+    setTodo({ ...todo, description: value });
   };
 
   const handleEdit = (index) => {
@@ -105,7 +114,7 @@ function HomePage(props) {
       .catch((err) => console.log(err));
 
     // clearing todo so that next todo can be added
-    setTodo({ ...todo, desc: "" });
+    setTodo({ ...todo, description: "" });
   };
 
   return (
