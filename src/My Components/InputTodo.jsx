@@ -33,7 +33,7 @@ export default function InputTodo(props) {
                     id="todo"
                     placeholder="Enter todo"
                     // setting value to todo.description so that on submit we can clear the value
-                    // thus, the input field will be cleared so that next value can be entered
+                    // next value can then be entered
                     value={props.todo.description}
                     onChange={(e) => {
                       props.onType(e.target.value);

@@ -9,6 +9,8 @@ function axiosGetTodos() {
 
   let email = localStorage.getItem("email");
 
+  console.log(localStorage.getItem("token"));
+
   return axios({
     method: "GET",
     url: `https://localhost:${TODO_PORT}/api/Todos/${email}`,
@@ -36,11 +38,9 @@ function axiosDeleteTodo(id) {
   });
 }
 
-function axiosEditTodo(updatedTodo, index) {
-  const data = {
-    updatedTodo: { ...updatedTodo },
-    index,
-  };
+function axiosEditTodo(updatedTodo) {
+  let data = { ...updatedTodo, email: localStorage.getItem("userEmail") };
+  console.log(data);
 
   return axios({
     method: "PUT",

@@ -63,6 +63,14 @@ function App() {
           <Route path="/homepage">
             <HomePage></HomePage>
           </Route>
+
+          <Route path="/:id">
+            <UserLogin
+              updateHeader={(value) => {
+                setTokenFound(value);
+              }}
+            ></UserLogin>
+          </Route>
         </Switch>
         <Footer className="footer"></Footer>
       </div>

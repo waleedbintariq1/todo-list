@@ -76,10 +76,16 @@ function HomePage(props) {
   }, []);
 
   const handleDelete = (id) => {
+    // const todoToDelete = todoList.find((todo) => todo.id === id);
+
+    const todoIndex = todoList.findIndex((todo) => todo.id === id);
+
+    todoList.splice(todoIndex, 1);
+
+    setTodoList((prevList) => [...prevList]);
+
     axiosDeleteTodo(id)
-      .then((res) => {
-        setTodoList(res.data);
-      })
+      .then((res) => {})
       .catch((err) => console.log(err));
   };
 
@@ -93,8 +99,9 @@ function HomePage(props) {
   };
 
   const handleType = (value) => {
-    // our value in this case is an object
-    // that's why we use curly braces
+    // following syntax breaks up the todo object into its properties
+    // then we can updated the particular value
+    // in this case, it is "description "
     setTodo({ ...todo, description: value });
   };
 
@@ -109,8 +116,12 @@ function HomePage(props) {
     const actualID = todoList[editIndex].id;
     updatedTodo = { ...updatedTodo, id: actualID };
 
-    axiosEditTodo(updatedTodo, editIndex)
-      .then((res) => setTodoList(res.data))
+    // edit the list and use this list to show the result on the front end
+    // if the edit procedure returns success from the server
+    todoList[editIndex] = updatedTodo;
+
+    axiosEditTodo(updatedTodo)
+      .then((res) => setTodoList(todoList))
       .catch((err) => console.log(err));
 
     // clearing todo so that next todo can be added
@@ -118,7 +129,7 @@ function HomePage(props) {
   };
 
   return (
-    <div className="container p-3 w-50 customBorder">
+    <div className="container p-3 w-75 customBorder">
       <div className="homePageButtons">
         <button
           className="btn btn-primary"

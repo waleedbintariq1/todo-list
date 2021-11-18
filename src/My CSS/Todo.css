@@ -11,14 +11,12 @@
 
 .textLayout {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 5fr 1fr;
 }
 
 .dateAndTime {
   display: grid;
   grid-template-columns: repeat(2, minmax(5em, 5em));
-  grid-gap: 1em;
-  justify-items: flex-end;
 }
 
 .date {

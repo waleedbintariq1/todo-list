@@ -70,12 +70,12 @@ export default function UserLogin(props) {
           props.updateHeader(true);
 
           history.push("/homepage");
-        } else {
-          alert("Incorrect login credentials!");
         }
-        console.log(res.status);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert("Incorrect login credentials!");
+        console.log(err);
+      });
 
     setEmail("");
     setPassword("");
