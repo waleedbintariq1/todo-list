@@ -22,6 +22,10 @@ export default function InputTodo(props) {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
+
+                  // var modal = document.getElementById("myModal");
+                  // modal.hidden = true;
+
                   check ? props.onAdd(props.todo) : props.onEdit(props.todo);
                 }}
               >

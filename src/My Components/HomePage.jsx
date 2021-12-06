@@ -47,52 +47,59 @@ function HomePage(props) {
       // check validity of token
       axiosLoginConfirm()
         .then((res) => {
-          if (res.status === 200) {
-            axiosGetTodos()
-              .then((res) => {
-                console.log(res.data);
-                setTodoList(res.data);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
+          console.log("axiosLoginConfirm response: ");
+          console.log(res.data);
+          axiosGetTodos()
+            .then((res) => {
+              console.log(res.data);
+              setTodoList(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
-          if (err.response.status === 403) {
-            console.log("token is no longer valid");
-            history.push("/");
-          }
+          console.log("token is no longer valid");
+          history.push("/");
         });
     } else {
       console.log("token is null");
       history.push("/");
     }
-
-    // return function cleanup() {
-    //   localStorage.clear();
-    //   console.log("good bye home page!");
-    // };
   }, []);
 
   const handleDelete = (id) => {
-    // const todoToDelete = todoList.find((todo) => todo.id === id);
-
     const todoIndex = todoList.findIndex((todo) => todo.id === id);
-
     todoList.splice(todoIndex, 1);
 
-    setTodoList((prevList) => [...prevList]);
+    // we can't directly put the list variable inside usestate set function
+    // setTodoList(todoList) is wrong in this case
+    // because react thinks that this is the same list as before
+    // even though one of its items has been updated
+    // as such it will not re-render
+
+    // do the following to get react to re-render the component
+    //setTodoList(() => [...todoList]);
 
     axiosDeleteTodo(id)
-      .then((res) => {})
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setTodoList(() => [...todoList]);
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/");
+        alert("Token expired!");
+      });
   };
 
   const handleAdd = (todo) => {
     axiosAddTodo({ ...todo })
       .then((res) => setTodoList((prevList) => [...prevList, res.data]))
-      .catch((err) => console.error());
+      .catch((err) => {
+        console.log(err);
+        history.push("/");
+        alert("Token expired!");
+      });
 
     // clearing todo so that next todo can be added
     setTodo({ ...todo, description: "" });
@@ -100,7 +107,7 @@ function HomePage(props) {
 
   const handleType = (value) => {
     // following syntax breaks up the todo object into its properties
-    // then we can updated the particular value
+    // then we can update the particular value
     // in this case, it is "description "
     setTodo({ ...todo, description: value });
   };
@@ -116,13 +123,15 @@ function HomePage(props) {
     const actualID = todoList[editIndex].id;
     updatedTodo = { ...updatedTodo, id: actualID };
 
-    // edit the list and use this list to show the result on the front end
-    // if the edit procedure returns success from the server
     todoList[editIndex] = updatedTodo;
 
     axiosEditTodo(updatedTodo)
-      .then((res) => setTodoList(todoList))
-      .catch((err) => console.log(err));
+      .then(() => setTodoList(todoList))
+      .catch((err) => {
+        console.log(err);
+        history.push("/");
+        alert("Token expired!");
+      });
 
     // clearing todo so that next todo can be added
     setTodo({ ...todo, description: "" });

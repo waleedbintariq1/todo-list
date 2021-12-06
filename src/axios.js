@@ -20,7 +20,7 @@ function axiosGetTodos() {
 
 function axiosAddTodo(todo) {
   let data = { ...todo, email: localStorage.getItem("userEmail") };
-
+  // now data is in the same format as Todo entity in dot net backend
   return axios({
     method: "POST",
     url: `https://localhost:${TODO_PORT}/api/Todos`,
@@ -40,7 +40,6 @@ function axiosDeleteTodo(id) {
 
 function axiosEditTodo(updatedTodo) {
   let data = { ...updatedTodo, email: localStorage.getItem("userEmail") };
-  console.log(data);
 
   return axios({
     method: "PUT",
@@ -55,7 +54,7 @@ function axiosSignup(user) {
 
   return axios({
     method: "POST",
-    url: `https://localhost:${USER_PORT}/api/Authentication/Register`,
+    url: `https://localhost:${USER_PORT}/api/Account/Register`,
     data,
   });
 }
@@ -65,7 +64,7 @@ function axiosLogin(user) {
   const data = { ...user };
   return axios({
     method: "POST",
-    url: `https://localhost:${USER_PORT}/api/Authentication/Login`,
+    url: `https://localhost:${USER_PORT}/api/Account/Login`,
     data,
   });
 }
@@ -73,7 +72,7 @@ function axiosLogin(user) {
 function axiosLoginConfirm() {
   return axios({
     method: "POST",
-    url: `https://localhost:${USER_PORT}/api/Authentication/LoginConfirm`,
+    url: `https://localhost:${USER_PORT}/api/Account/LoginConfirm`,
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }

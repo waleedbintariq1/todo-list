@@ -32,16 +32,9 @@ export default function UserLogin(props) {
         axiosLoginConfirm()
           .then((res) => {
             history.push("/homepage");
-
-            // if (res.status === 200) {
-            //   // token is valid
-            //   history.push("/homepage");
-            // }
           })
           .catch((err) => {
-            if (err.response.status === 403) {
-              console.log("token is no longer valid");
-            }
+            console.log("token is no longer valid");
           });
       }
     } else {
@@ -82,7 +75,7 @@ export default function UserLogin(props) {
   };
 
   return (
-    <div className=" container loginContainer">
+    <div className="container loginContainer">
       <h1 className="loginHeading">Login</h1>
 
       <form className="p-5" onSubmit={(e) => handleSubmit(e)}>

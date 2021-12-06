@@ -29,9 +29,7 @@ function App() {
           setTokenFound(true);
         })
         .catch((err) => {
-          if (err.response.status === 403) {
-            setTokenFound(false);
-          }
+          setTokenFound(false);
         });
     } else {
       console.log("token is null");
