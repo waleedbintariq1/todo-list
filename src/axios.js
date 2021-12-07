@@ -50,6 +50,7 @@ function axiosEditTodo(updatedTodo) {
 }
 
 function axiosSignup(user) {
+  console.log("inside axios signup");
   const data = { ...user };
 
   return axios({

@@ -51,14 +51,8 @@ export default function UserSignup(props) {
     };
 
     axiosSignup(user)
-      .then((res) => {
-        if (res.data) {
-          alert("Signup successful!");
-        } else {
-          alert("Email already in use!");
-        }
-      })
-      .catch((err) => console.log(err));
+      .then(() => alert("Signup successful!"))
+      .catch((err) => alert("Email already in use!"));
 
     setFirstName("");
     setLastName("");
