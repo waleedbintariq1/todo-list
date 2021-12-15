@@ -7,19 +7,23 @@ function axiosGetTodos() {
   // GET methods do not contain a body
   // as such, we cannot pass data in this request
 
-  let email = localStorage.getItem("email");
+  console.log("inside axiosGetTodos");
+
+  let userId = localStorage.getItem("userId");
+  console.log(userId);
 
   console.log(localStorage.getItem("token"));
 
   return axios({
     method: "GET",
-    url: `https://localhost:${TODO_PORT}/api/Todos/${email}`,
+    url: `https://localhost:${TODO_PORT}/api/Todos/${userId}`,
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 }
 
 function axiosAddTodo(todo) {
-  let data = { ...todo, email: localStorage.getItem("userEmail") };
+  // The name "TodoAPIUserId" must be exactly the same as the property of receiving object in backend
+  let data = { ...todo, TodoAPIUserId: localStorage.getItem("userId") };
   // now data is in the same format as Todo entity in dot net backend
   return axios({
     method: "POST",
@@ -39,7 +43,8 @@ function axiosDeleteTodo(id) {
 }
 
 function axiosEditTodo(updatedTodo) {
-  let data = { ...updatedTodo, email: localStorage.getItem("userEmail") };
+  // The name "TodoAPIUserId" must be exactly the same as the property of receiving object in backend
+  let data = { ...updatedTodo, TodoAPIUserId: localStorage.getItem("userId") };
 
   return axios({
     method: "PUT",

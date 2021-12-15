@@ -54,16 +54,17 @@ export default function UserLogin(props) {
 
     axiosLogin(user)
       .then((res) => {
-        if (res.data.authenticated) {
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("email", res.data.user.email);
-          localStorage.setItem("password", res.data.user.password);
+        console.log("after axiosLogin");
+        console.log("userid:");
+        console.log(res.data.userId);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userId", res.data.userId);
+        localStorage.setItem("password", res.data.password);
 
-          // to update the header of the app
-          props.updateHeader(true);
+        // to update the header of the app
+        props.updateHeader(true);
 
-          history.push("/homepage");
-        }
+        history.push("/homepage");
       })
       .catch((err) => {
         alert("Incorrect login credentials!");

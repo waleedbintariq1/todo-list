@@ -52,7 +52,10 @@ export default function UserSignup(props) {
 
     axiosSignup(user)
       .then(() => alert("Signup successful!"))
-      .catch((err) => alert("Email already in use!"));
+      .catch((res) => {
+        console.log(res.Result);
+        alert("Email already in use!");
+      });
 
     setFirstName("");
     setLastName("");

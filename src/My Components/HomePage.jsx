@@ -47,10 +47,9 @@ function HomePage(props) {
       // check validity of token
       axiosLoginConfirm()
         .then((res) => {
-          console.log("axiosLoginConfirm response: ");
-          console.log(res.data);
           axiosGetTodos()
             .then((res) => {
+              console.log("after axiosGetTodos");
               console.log(res.data);
               setTodoList(res.data);
             })
